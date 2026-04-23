@@ -1,0 +1,46 @@
+experiment:
+  name: perturbdigger-demo
+  output_dir: runs/demo
+
+data:
+  root: data/demo
+
+model:
+  hidden_dim: 64
+  id_dim: 32
+  meta_hidden_dim: 16
+  context_dim: 32
+  tau_tg: 0.25
+  topk_tg: 4
+  tau_gp: 0.2
+  topk_gp: 4
+  dropout: 0.1
+
+training:
+  seed: 7
+  device: auto
+  show_progress: true
+  pin_memory: true
+  num_workers: 0
+  calibration:
+    epochs: 20
+    batch_size: 16
+    lr: 0.001
+    weight_decay: 0.0001
+    mask_ratio: 0.15
+    lambda_cal: 0.2
+    lasso_alpha: 0.01
+  perturbation:
+    epochs: 60
+    batch_size: 16
+    lr: 0.001
+    weight_decay: 0.0001
+    lambda_nec: 0.2
+    gamma: 0.5
+    early_stop_patience: 10
+
+explanations:
+  split: test
+  batch_size: 16
+  top_edges_per_sample: 12
+  top_edges_per_condition: 16

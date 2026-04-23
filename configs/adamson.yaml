@@ -1,0 +1,69 @@
+base: base.yaml
+
+experiment:
+  name: perturbdigger-adamson
+  output_dir: runs/adamson
+
+data:
+  root: data/adamson
+  raw_h5ad: adamson/perturb_processed.h5ad
+  go_edges: adamson/go.csv
+  reactome_gmt: _database/pathways/Reactome/ReactomePathways.gmt
+  reactome_pathways: _database/pathways/Reactome/ReactomePathways.txt
+  reactome_relations: _database/pathways/Reactome/ReactomePathwaysRelation.txt
+
+preprocess:
+  seed: 7
+  chunk_size: 512
+  gg_topk: 16
+  gg_min_importance: 0.11
+  tg_topk: 8
+  tg_min_importance: 0.12
+  regulator_outdegree_quantile: 0.75
+  regulator_min_outdegree: 24
+  min_pathway_genes: 5
+  max_pathway_genes: 250
+  val_fraction: 0.15
+  test_fraction: 0.15
+
+model:
+  hidden_dim: 96
+  id_dim: 32
+  meta_hidden_dim: 24
+  context_dim: 48
+  tau_tg: 0.2
+  topk_tg: 6
+  tau_gp: 0.2
+  topk_gp: 6
+  dropout: 0.1
+
+training:
+  seed: 7
+  device: auto
+  show_progress: true
+  pin_memory: true
+  num_workers: 0
+  calibration:
+    epochs: 8
+    batch_size: 32
+    lr: 0.001
+    weight_decay: 0.0001
+    mask_ratio: 0.1
+    lambda_cal: 0.2
+    lasso_alpha: 0.01
+    max_control_samples: 4096
+  perturbation:
+    epochs: 20
+    batch_size: 8
+    lr: 0.001
+    weight_decay: 0.0001
+    lambda_nec: 0.1
+    gamma: 1.0
+    early_stop_patience: 5
+
+explanations:
+  split: test
+  batch_size: 8
+  max_samples: 512
+  top_edges_per_sample: 12
+  top_edges_per_condition: 16
