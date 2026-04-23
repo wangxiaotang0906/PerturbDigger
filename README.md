@@ -11,8 +11,7 @@ PerturbDigger/
 |  |- demo.yaml
 |  `- adamson.yaml
 |- data/
-|  |- demo/
-|  `- adamson/
+|  |`- demo/
 |- scripts/
 |  |- build_demo_data.py
 |  |- prepare_adamson.py
