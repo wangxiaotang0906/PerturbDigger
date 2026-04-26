@@ -2,6 +2,9 @@
 
 PerturbDigger is a PyTorch implementation of perturbation prediction and mechanistic subgraph discovery on partially trusted prior graphs. The repository includes a lightweight demo dataset and a complete Adamson pipeline built around Reactome pathway structure.
 
+<img src="PerturbDigger.png">
+<p align="center">Framework of PerturbDigger.</p>
+
 ## Repository layout
 
 ```text
